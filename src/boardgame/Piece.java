@@ -2,7 +2,7 @@ package boardgame;
 
 public class Piece {
 	
-	protected Position position;
+	protected Position position; //Protected Significa que so pode ser compartilhado entre o pacote "boardgame" e as subclasses.
 	private Board board;
 	
 	
