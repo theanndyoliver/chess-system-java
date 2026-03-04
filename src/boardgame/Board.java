@@ -44,8 +44,8 @@ public class Board {
 		if(thereIsAPiece(position)) {
 			throw new BoardException("Já existe uma peça nessa posição " + position);
 		}
-		pieces[position.getRow()][position.getColumn()] = piece;
-		piece.position = position;
+		pieces[position.getRow()][position.getColumn()] = piece; //Está colocando a peça no local disponível no tabuleiro.
+		piece.position = position; //Atualiza o local da peça para ela saber onde está.
 	}
 	
 	private boolean positionExists(int row,int column) {
