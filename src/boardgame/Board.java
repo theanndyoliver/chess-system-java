@@ -57,9 +57,9 @@ public class Board {
 			return null;
 		}
 		Piece aux = piece(position);
-		aux.position = null;
-		pieces[position.getRow()][position.getColumn()] = null;
-		return aux;
+		aux.position = null; // Remove a peça da posição.
+		pieces[position.getRow()][position.getColumn()] = null; //Remove a peça da matriz do tabuleiro.
+		return aux; //Retorna a peça removida.
 	}
 	
 	

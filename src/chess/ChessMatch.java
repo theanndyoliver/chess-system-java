@@ -29,25 +29,28 @@ public class ChessMatch {
 	}
 	
 	public ChessPiece performChessMove(ChessPosition sourcePosition, ChessPosition targetPosition) {
-		Position source = sourcePosition.toPosition();
-		Position target = targetPosition.toPosition();
-		validateSourcePosition(source);
-		Piece capturedPiece = makeMove(source,target);
-		return (ChessPiece) capturedPiece;
+		Position source = sourcePosition.toPosition(); //Converte a posição de xadrez de origem para indice de matriz.
+		Position target = targetPosition.toPosition(); //Converte a posição de xadrez de destino para indice de matriz.
+		validateSourcePosition(source); // Verifica se tem uma peça naquela posição de origem.
+		Piece capturedPiece = makeMove(source,target); //Move a peça de origem para o local de destino capturando a peça no destino se tiver uma.
+		return (ChessPiece) capturedPiece; // Faz o downcasting de Piece para ChessPiece(sub-classe) e retorna ela.
 		
 	}
 	
 	private Piece makeMove(Position source, Position target) {
-		Piece p = board.removePiece(source);
-		Piece capturedPiece = board.removePiece(target);
-		board.placePiece(p, target);
-		return capturedPiece;
+		Piece p = board.removePiece(source); //Remove a peça daquela posição e armazena na váriavel P.
+		Piece capturedPiece = board.removePiece(target); //Remove a peça capturada e armazena nessa váriavel.
+		board.placePiece(p, target); // Coloca a peça da váriavel P na posição indicada pelo Position target.
+		return capturedPiece; // Retorna a peça capturada.
 	}
 	
 	
 	private void validateSourcePosition(Position position) {
 		if (!board.thereIsAPiece(position)) {
 			throw new ChessException("Não existe peça na posição de origem.");
+		}
+		if(!board.piece(position).isThereAnyPossibleMove()) {
+			throw new ChessException("Não existe movimento possível para a peça escolhida!");
 		}
 	}
 	
