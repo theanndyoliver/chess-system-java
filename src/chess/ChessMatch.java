@@ -32,6 +32,7 @@ public class ChessMatch {
 		Position source = sourcePosition.toPosition(); //Converte a posição de xadrez de origem para indice de matriz.
 		Position target = targetPosition.toPosition(); //Converte a posição de xadrez de destino para indice de matriz.
 		validateSourcePosition(source); // Verifica se tem uma peça naquela posição de origem.
+		validateTargetPosition(source,target);
 		Piece capturedPiece = makeMove(source,target); //Move a peça de origem para o local de destino capturando a peça no destino se tiver uma.
 		return (ChessPiece) capturedPiece; // Faz o downcasting de Piece para ChessPiece(sub-classe) e retorna ela.
 		
@@ -51,6 +52,13 @@ public class ChessMatch {
 		}
 		if(!board.piece(position).isThereAnyPossibleMove()) {
 			throw new ChessException("Não existe movimento possível para a peça escolhida!");
+		}
+	}
+	
+	private void validateTargetPosition(Position source,Position target) {
+		if(!board.piece(source).possibleMove(target)) {
+			throw new ChessException("A peça escolhida não pode se mover para a posição de destino.");
+			
 		}
 	}
 	
