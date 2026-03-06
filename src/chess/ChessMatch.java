@@ -28,6 +28,13 @@ public class ChessMatch {
 		
 	}
 	
+	public boolean[][] possibleMoves(ChessPosition sourcePosition) {
+		Position position = sourcePosition.toPosition();
+		validateSourcePosition(position);
+		return board.piece(position).possibleMoves();
+	}
+	
+	
 	public ChessPiece performChessMove(ChessPosition sourcePosition, ChessPosition targetPosition) {
 		Position source = sourcePosition.toPosition(); //Converte a posição de xadrez de origem para indice de matriz.
 		Position target = targetPosition.toPosition(); //Converte a posição de xadrez de destino para indice de matriz.
