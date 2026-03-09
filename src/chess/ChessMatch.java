@@ -8,11 +8,24 @@ import chess.pieces.Rook;
 
 public class ChessMatch {
 	
+	private int turn;
+	private Color currentPlayer;
+	
 	private Board board;
 	
 	public ChessMatch() {
 		board = new Board(8,8);
+		turn = 1;
+		currentPlayer = Color.WHITE;
 		initialSetup();
+	}
+	
+	public int getTurn() {
+		return turn;
+	}
+	
+	public Color getCurrentPlayer() {
+		return currentPlayer;
 	}
 	
 	public ChessPiece [][] getPieces() {
@@ -41,6 +54,7 @@ public class ChessMatch {
 		validateSourcePosition(source); // Verifica se tem uma peça naquela posição de origem.
 		validateTargetPosition(source,target);
 		Piece capturedPiece = makeMove(source,target); //Move a peça de origem para o local de destino capturando a peça no destino se tiver uma.
+		nextTurn();
 		return (ChessPiece) capturedPiece; // Faz o downcasting de Piece para ChessPiece(sub-classe) e retorna ela.
 		
 	}
@@ -57,6 +71,11 @@ public class ChessMatch {
 		if (!board.thereIsAPiece(position)) {
 			throw new ChessException("Não existe peça na posição de origem.");
 		}
+		
+		if(currentPlayer != ((ChessPiece)board.piece(position)).getColor()) {
+			throw new ChessException("A peça escolhida não é sua.");
+			
+		}
 		if(!board.piece(position).isThereAnyPossibleMove()) {
 			throw new ChessException("Não existe movimento possível para a peça escolhida!");
 		}
@@ -67,6 +86,12 @@ public class ChessMatch {
 			throw new ChessException("A peça escolhida não pode se mover para a posição de destino.");
 			
 		}
+	}
+	
+	private void nextTurn() {
+		turn++;
+		currentPlayer = (currentPlayer == Color.WHITE) ? Color.BLACK : Color.WHITE;
+		//Se o jogador atual for peça branca, o proximo jogador vai ser peça preta,caso contrario vai ser peça branca.
 	}
 	
 	private void placeNewPiece(char column,int row,ChessPiece piece) {
