@@ -94,7 +94,8 @@ public class ChessMatch {
 		
 	
 	private Piece makeMove(Position source, Position target) {
-		Piece p = board.removePiece(source); //Remove a peça daquela posição e armazena na váriavel P.
+		ChessPiece p = (ChessPiece)board.removePiece(source); //Remove a peça daquela posição e armazena na váriavel P.
+		p.increaseMoveCount();
 		Piece capturedPiece = board.removePiece(target); //Remove a peça capturada e armazena nessa váriavel.
 		board.placePiece(p, target); // Coloca a peça da váriavel P na posição indicada pelo Position target.
 		
@@ -106,7 +107,8 @@ public class ChessMatch {
 	}
 	
 	private void undoMove(Position source,Position target,Piece capturedPiece) {
-		Piece p = board.removePiece(target);
+		ChessPiece p = (ChessPiece)board.removePiece(target);
+		p.decreaseMoveCount();
 		board.placePiece(p, source);
 		
 		if(capturedPiece != null ) {
