@@ -133,7 +133,7 @@ public class ChessMatch {
 			throw new IllegalStateException("Não a peça para ser promovida.");
 		}
 		if(!type.equals("B") && !type.equals("N") && !type.equals("R") && !type.equals("Q")) {
-			throw new InvalidParameterException("Tipo de peça inválida para a promoção");
+			return promoted;
 			
 		}
 		
